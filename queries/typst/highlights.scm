@@ -1,0 +1,2 @@
+(text) @spell
+(heading) @spell
