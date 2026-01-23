@@ -58,6 +58,18 @@ if (-not (Get-Command lazygit -ErrorAction SilentlyContinue)) {
     Write-Host "Lazygit is already installed."
 }
 
+# Check if ripgrep is installed, and install it if not
+if (-not (Get-Command rg -ErrorAction SilentlyContinue)) {
+    Write-Host "ripgrep not found. Attempting to install with winget..."
+    try {
+        winget install BurntSushi.ripgrep.MSVC --source winget --accept-source-agreements --accept-package-agreements
+    } catch {
+        Write-Error "Failed to install ripgrep with winget. Please install it manually."
+    }
+} else {
+    Write-Host "ripgrep is already installed."
+}
+
 if (-not (Test-Path -Path $destinationDir)) {
     Write-Host "Creating destination directory: $destinationDir"
     New-Item -ItemType Directory -Path $destinationDir | Out-Null
@@ -71,7 +83,7 @@ if (Test-Path -Path "$($env:windir)\Fonts\$fontCheckFile") {
     Write-Host "Fira Code Nerd Font appears to be already installed."
 } else {
     Write-Host "Installing Fira Code Nerd Font..."
-    $fontZipUrl = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip"
+    $fontZipUrl = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip"
     $tempDir = "$env:TEMP\FiraCodeNerdFont"
     $fontZipPath = "$tempDir\FiraCode.zip"
 
@@ -154,6 +166,31 @@ if ($profileContent -match [regex]::Escape($aliasCommand)) {
     Write-Host "Adding alias 'n' for 'nvim' to the PowerShell profile."
     Add-Content -Path $PROFILE -Value "`n# Alias for Neovim`n$aliasCommand"
     Write-Host "Alias added. Please restart your PowerShell session for the changes to take effect."
+}
+
+# 7. Add "Open with Neovim" to the context menu
+Write-Host "Adding 'Open with Neovim' to the context menu..."
+if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Write-Warning "Administrator privileges are required to add the 'Open with Neovim' context menu. Please re-run this script as an Administrator."
+} else {
+    $nvimPath = (Get-Command nvim).Source
+    if ($nvimPath) {
+        $keyPath = "Registry::HKEY_CLASSES_ROOT\*\shell\Open with Neovim"
+        if (-not (Test-Path $keyPath)) {
+            New-Item -Path $keyPath -Force | Out-Null
+            Set-ItemProperty -Path $keyPath -Name "Icon" -Value $nvimPath -Force
+        }
+
+        $commandPath = "$keyPath\command"
+        if (-not (Test-Path $commandPath)) {
+            New-Item -Path $commandPath -Force | Out-Null
+        }
+        Set-ItemProperty -Path $commandPath -Name "(Default)" -Value "`"$nvimPath`" `"%1`"" -Force
+
+        Write-Host "'Open with Neovim' added to the context menu."
+    } else {
+        Write-Warning "Could not find nvim.exe path. Skipping 'Open with Neovim' context menu entry."
+    }
 }
 
 
