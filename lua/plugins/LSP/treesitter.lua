@@ -32,7 +32,7 @@ return {
 
         -- ensure these languages parsers are installed
         ensure_installed = {
-          "json",
+          -- "json",
           -- "javascript",
           -- "typescript",
           -- "tsx",
@@ -43,12 +43,12 @@ return {
           -- "python",
           -- "http",
           -- "prisma",
-          "markdown",
-          "markdown_inline",
+          -- "markdown",
+          -- "markdown_inline",
           -- "svelte",
           -- "graphql",
-          "bash",
-          "typst",
+          -- "bash",
+          -- "typst",
           "lua",
           -- "vim",
           -- "dockerfile",
@@ -57,7 +57,7 @@ return {
           -- "vimdoc",
           -- "c",
           -- "java",
-          "rust",
+          -- "rust",
           -- "ron",
         },
         incremental_selection = {

@@ -33,16 +33,16 @@ return {
     }
 
     mason_lspconfig.setup {
-      automatic_enable = false,
+      automatic_enable = true,
       -- servers for mason to install
       ensure_installed = {
         "lua_ls",
         -- "ts_ls", currently using a ts plugin
         -- "html",
-        "tinymist",
+        -- "tinymist",
         -- "qmlls",
         -- "ruby_lsp",
-        "omnisharp",
+        -- "omnisharp",
         -- "csharp_ls",
         -- "cssls",
         -- "tailwindcss",
@@ -51,7 +51,7 @@ return {
         -- "emmet_language_server",
         -- "eslint",
         -- "gdtoolkit",
-        "marksman",
+        -- "marksman",
       },
     }
 
@@ -59,7 +59,7 @@ return {
       ensure_installed = {
         "prettier", -- prettier formatter
         "stylua", -- lua formatter
-        "typstyle",
+        -- "typstyle",
         -- "gdtoolkit",
         -- "isort",    -- python formatter
         -- "pylint",
