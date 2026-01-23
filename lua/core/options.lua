@@ -7,7 +7,17 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.opt_local.spell = true
   end,
 })
+-- vim.g.neovide_text_gamma = 1.0
+-- vim.g.neovide_text_contrast = 0.5
 
+-- vim.g.neovide_padding_top = 20
+vim.g.neovide_padding_bottom = 20
+vim.g.neovide_padding_right = 20
+vim.g.neovide_padding_left = 20
+vim.opt.guifont = "Hack Nerd Font Propo:h14"
+-- if vim.g.neovide then
+--   -- Put anything you want to happen only in Neovide here
+-- end
 vim.cmd "let g:netrw_banner = 0 "
 vim.opt.nu = true
 vim.opt.autochdir = true

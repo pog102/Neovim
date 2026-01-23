@@ -6,9 +6,11 @@ return {
   priority = 30,
   opts = {},
   config = function()
+    local transparentcy = not vim.g.neovide
     require("tokyonight").setup {
       -- use the night style
-      transparent = true, -- Enable this to disable setting the background color
+      transparent = transparentcy, -- Enable this to disable setting the background color
+
       -- style = "night",
       style = "storm",
       styles = {

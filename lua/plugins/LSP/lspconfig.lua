@@ -42,7 +42,7 @@ return {
     -- Set the diagnostic config with all icons
     -- vim.lsp.enable "qmlls"
     -- vim.lsp.config "qmllss"
-    vim.lsp.enable "lua_ls"
+    -- vim.lsp.enable "lua_ls"
     -- vim.lsp.enable "pyright"
     -- vim.lsp.enable "tinymist"
     -- vim.lsp.enable "hyprls"

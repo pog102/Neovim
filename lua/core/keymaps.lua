@@ -34,7 +34,7 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("n", "<C-c>", ":nohl<CR>", { desc = "Clear search hl", silent = true })
 vim.keymap.set("n", "<S-l>", ":Lazy<CR>", { desc = "Open Lazy", silent = true })
 -- format without prettier using the built in
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+-- vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 vim.keymap.set("n", "<C-f>", "/")
 -- Unmaps Q in normal mode

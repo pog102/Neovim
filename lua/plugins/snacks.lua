@@ -136,13 +136,13 @@ return {
         end,
         desc = "References (Snacks Picker)",
       },
-      -- {
-      --   "<leader>s",
-      --   function()
-      --     require("snacks").picker.load_sessions()
-      --   end,
-      --   desc = "Load Sessions",
-      -- },
+      {
+        "<leader>fl",
+        function()
+          require("snacks").picker.lazy()
+        end,
+        desc = "Lazy Plugins",
+      },
       {
         "<leader>lg",
         function()
