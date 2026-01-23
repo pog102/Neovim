@@ -164,6 +164,29 @@ return {
         end,
         desc = "Fast Rename Current File",
       },
+
+      {
+        "<leader>uc",
+        function()
+          require("snacks").picker.colorschemes {
+            on_close = function()
+              local cs = vim.g.colors_name
+              if not cs then
+                return
+              end
+
+              local path = vim.fn.stdpath "config" .. "/lua/core/colorscheme.lua"
+              local lines = {
+                string.format('vim.cmd.colorscheme("%s")', cs),
+              }
+
+              vim.fn.writefile(lines, path)
+              vim.notify("Saved colorscheme: " .. cs)
+            end,
+          }
+        end,
+        desc = "Colorschemes (persist)",
+      },
       {
         "<leader>rf",
         function()
