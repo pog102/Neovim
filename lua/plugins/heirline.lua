@@ -514,7 +514,7 @@ return {
         local pad = math.ceil((width - #title) / 2)
         return string.rep(" ", pad) .. title .. string.rep(" ", pad)
       end,
-      -- TODO: make transparentt
+      -- FIN: make transparentt
       hl = function(self)
         if vim.api.nvim_get_current_win() == self.winid then
           return "TablineSel"

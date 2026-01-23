@@ -134,8 +134,15 @@ return {
         function()
           require("snacks").picker.lsp_references()
         end,
-        desc = "Lazygit",
+        desc = "References (Snacks Picker)",
       },
+      -- {
+      --   "<leader>s",
+      --   function()
+      --     require("snacks").picker.load_sessions()
+      --   end,
+      --   desc = "Load Sessions",
+      -- },
       {
         "<leader>lg",
         function()
@@ -225,9 +232,32 @@ return {
       --   desc = "Search Keymaps (Snacks Picker)",
       -- },
       {
+        "<leader>fi",
+        function()
+          -- require("snacks").picker.icons {
+          --   -- layout = {
+          --   --   preview = "preview",
+          --   --   preset = "dropdown",
+          --   -- },
+          -- }
+          require("snacks").picker.icons {
+            sources = {
+              -- "nerd fonts", -- Nerd Font icons
+              -- "emoji", -- 🚫 disable emojis
+            },
+          }
+        end,
+        desc = "Search Icons (Snacks Picker)",
+      },
+      {
         "<leader>pk",
         function()
-          require("snacks").picker.keymaps { layout = "ivy" }
+          require("snacks").picker.keymaps {
+            layout = {
+              preview = "preview",
+              preset = "dropdown",
+            },
+          }
         end,
         desc = "Search Keymaps (Snacks Picker)",
       },

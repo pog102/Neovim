@@ -43,12 +43,12 @@ return {
     -- vim.lsp.enable "qmlls"
     -- vim.lsp.config "qmllss"
     vim.lsp.enable "lua_ls"
-    vim.lsp.enable "pyright"
-    vim.lsp.enable "tinymist"
-    vim.lsp.enable "hyprls"
+    -- vim.lsp.enable "pyright"
+    -- vim.lsp.enable "tinymist"
+    -- vim.lsp.enable "hyprls"
 
-    vim.lsp.enable "ruby_ls"
-    vim.lsp.enable "gdtoolkit"
+    -- vim.lsp.enable "ruby_ls"
+    -- vim.lsp.enable "gdtoolkit"
     --   -- Setup servers
     --   -- local cmp_nvim_lsp = require "cmp_nvim_lsp"
     --   -- local capabilities = cmp_nvim_lsp.default_capabilities()
