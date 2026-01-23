@@ -10,8 +10,6 @@ $destinationDir = "$env:LOCALAPPDATA\nvim"
 
 # Files and directories to exclude from copying
 $exclude = @(
-    ".git",
-    "install.ps1"
 )
 
 # --- Script Execution ---

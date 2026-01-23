@@ -26,7 +26,7 @@ vim.opt.backup = false
 -- vim.opt.undodir = os.getenv "HOME" .. "/.vim/undodir"
 local undodir_path
 if vim.fn.has "win32" == 1 then
-  undodir_path = os.getenv "HOME" .. "\\.vim\\undodir"
+  undodir_path = os.getenv "LOCALAPPDATA" .. "/nvim-data/undodir"
 else
   undodir_path = os.getenv "HOME" .. "/.vim/undodir"
 end
