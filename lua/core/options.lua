@@ -23,7 +23,18 @@ vim.opt.smartindent = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv "HOME" .. "/.vim/undodir"
+-- vim.opt.undodir = os.getenv "HOME" .. "/.vim/undodir"
+local undodir_path
+if vim.fn.has "win32" == 1 then
+  undodir_path = os.getenv "HOME" .. "\\.vim\\undodir"
+else
+  undodir_path = os.getenv "HOME" .. "/.vim/undodir"
+end
+
+vim.opt.undodir = undodir_path
+if vim.fn.isdirectory(undodir_path) == 0 then
+  vim.fn.mkdir(undodir_path, "p")
+end
 vim.opt.undofile = true
 
 vim.opt.incsearch = true
