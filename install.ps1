@@ -39,49 +39,56 @@ if (-not (Test-Path -Path $destinationDir)) {
 }
 
 # 4. Install Hack Nerd Font
-Write-Host "Installing Hack Nerd Font..."
-$fontZipUrl = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip"
-$tempDir = "$env:TEMP\HackNerdFont"
-$fontZipPath = "$tempDir\Hack.zip"
+Write-Host "Checking for Hack Nerd Font..."
+# We check for a specific font file that is included in the Hack Nerd Font package.
+$fontCheckFile = "Hack Regular Nerd Font Complete.ttf"
+if (Test-Path -Path "$($env:windir)\Fonts\$fontCheckFile") {
+    Write-Host "Hack Nerd Font appears to be already installed."
+} else {
+    Write-Host "Installing Hack Nerd Font..."
+    $fontZipUrl = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip"
+    $tempDir = "$env:TEMP\HackNerdFont"
+    $fontZipPath = "$tempDir\Hack.zip"
 
-# Create a temporary directory for the font download
-if (-not (Test-Path -Path $tempDir)) {
-    New-Item -ItemType Directory -Path $tempDir | Out-Null
-}
-
-# Download the font zip file
-try {
-    Invoke-WebRequest -Uri $fontZipUrl -OutFile $fontZipPath
-    Write-Host "Downloaded Hack Nerd Font."
-} catch {
-    Write-Error "Failed to download Hack Nerd Font. Please install it manually from $fontZipUrl"
-    # Continue with the rest of the script
-}
-
-# Extract the font files
-try {
-    Expand-Archive -Path $fontZipPath -DestinationPath $tempDir -Force
-    Write-Host "Extracted font files."
-} catch {
-    Write-Error "Failed to extract font files. Make sure you have a tool that can handle .zip files."
-    # Continue with the rest of the script
-}
-
-# Install the fonts
-$fontDestination = (New-Object -ComObject Shell.Application).Namespace(0x14)
-$fontFiles = Get-ChildItem -Path $tempDir -Recurse -Include '*.ttf', '*.otf'
-foreach ($fontFile in $fontFiles) {
-    if (Test-Path -Path "$($env:windir)\Fonts\$($fontFile.Name)") {
-        Write-Host "Font '$($fontFile.Name)' is already installed."
-    } else {
-        $fontDestination.CopyHere($fontFile.FullName)
-        Write-Host "Font '$($fontFile.Name)' installed successfully."
+    # Create a temporary directory for the font download
+    if (-not (Test-Path -Path $tempDir)) {
+        New-Item -ItemType Directory -Path $tempDir | Out-Null
     }
-}
 
-# Clean up the temporary directory
-Remove-Item -Path $tempDir -Recurse -Force
-Write-Host "Hack Nerd Font installation process complete."
+    # Download the font zip file
+    try {
+        Invoke-WebRequest -Uri $fontZipUrl -OutFile $fontZipPath
+        Write-Host "Downloaded Hack Nerd Font."
+    } catch {
+        Write-Error "Failed to download Hack Nerd Font. Please install it manually from $fontZipUrl"
+        # Continue with the rest of the script
+    }
+
+    # Extract the font files
+    try {
+        Expand-Archive -Path $fontZipPath -DestinationPath $tempDir -Force
+        Write-Host "Extracted font files."
+    } catch {
+        Write-Error "Failed to extract font files. Make sure you have a tool that can handle .zip files."
+        # Continue with the rest of the script
+    }
+
+    # Install the fonts
+    $fontDestination = (New-Object -ComObject Shell.Application).Namespace(0x14)
+    $fontFiles = Get-ChildItem -Path $tempDir -Recurse -Include '*.ttf', '*.otf'
+    foreach ($fontFile in $fontFiles) {
+        if (Test-Path -Path "$($env:windir)\Fonts\$($fontFile.Name)") {
+            Write-Host "Font '$($fontFile.Name)' is already installed."
+        } else {
+            $fontDestination.CopyHere($fontFile.FullName)
+            Write-Host "Font '$($fontFile.Name)' installed successfully."
+        }
+    }
+
+    # Clean up the temporary directory
+    Remove-Item -Path $tempDir -Recurse -Force
+    Write-Host "Hack Nerd Font installation process complete."
+}
 
 
 # 5. Copy files and directories
@@ -102,4 +109,26 @@ Get-ChildItem -Path $sourceDir -Exclude $exclude -Recurse | ForEach-Object {
 }
 
 Write-Host "Installation complete."
+
+# 6. Set PowerShell alias for nvim
+Write-Host "Setting up PowerShell alias 'n' for 'nvim'..."
+
+# Check if the profile file exists, create if it doesn't
+if (-not (Test-Path -Path $PROFILE)) {
+    Write-Host "PowerShell profile not found. Creating one at: $PROFILE"
+    New-Item -ItemType File -Path $PROFILE -Force | Out-Null
+}
+
+# Check if the alias is already in the profile
+# We use -match to check for the presence of the alias command.
+$profileContent = Get-Content -Path $PROFILE -ErrorAction SilentlyContinue
+$aliasCommand = "Set-Alias -Name n -Value nvim"
+if ($profileContent -match [regex]::Escape($aliasCommand)) {
+    Write-Host "Alias 'n' for 'nvim' for 'nvim' already exists in the PowerShell profile."
+} else {
+    Write-Host "Adding alias 'n' for 'nvim' to the PowerShell profile."
+    Add-Content -Path $PROFILE -Value "`n# Alias for Neovim`n$aliasCommand"
+    Write-Host "Alias added. Please restart your PowerShell session for the changes to take effect."
+}
+
 
