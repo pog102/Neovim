@@ -70,6 +70,18 @@ if (-not (Get-Command rg -ErrorAction SilentlyContinue)) {
     Write-Host "ripgrep is already installed."
 }
 
+# Check if gcc is installed, and install it if not
+if (-not (Get-Command gcc -ErrorAction SilentlyContinue)) {
+    Write-Host "gcc not found. Attempting to install with winget..."
+    try {
+        winget install MinGW.MinGW --source winget --accept-source-agreements --accept-package-agreements
+    } catch {
+        Write-Error "Failed to install gcc with winget. Please install it manually."
+    }
+} else {
+    Write-Host "gcc is already installed."
+}
+
 if (-not (Test-Path -Path $destinationDir)) {
     Write-Host "Creating destination directory: $destinationDir"
     New-Item -ItemType Directory -Path $destinationDir | Out-Null
@@ -168,29 +180,5 @@ if ($profileContent -match [regex]::Escape($aliasCommand)) {
     Write-Host "Alias added. Please restart your PowerShell session for the changes to take effect."
 }
 
-# 7. Add "Open with Neovim" to the context menu
-Write-Host "Adding 'Open with Neovim' to the context menu..."
-if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Warning "Administrator privileges are required to add the 'Open with Neovim' context menu. Please re-run this script as an Administrator."
-} else {
-    $nvimPath = (Get-Command nvim).Source
-    if ($nvimPath) {
-        $keyPath = "Registry::HKEY_CLASSES_ROOT\*\shell\Open with Neovim"
-        if (-not (Test-Path $keyPath)) {
-            New-Item -Path $keyPath -Force | Out-Null
-            Set-ItemProperty -Path $keyPath -Name "Icon" -Value $nvimPath -Force
-        }
-
-        $commandPath = "$keyPath\command"
-        if (-not (Test-Path $commandPath)) {
-            New-Item -Path $commandPath -Force | Out-Null
-        }
-        Set-ItemProperty -Path $commandPath -Name "(Default)" -Value "`"$nvimPath`" `"%1`"" -Force
-
-        Write-Host "'Open with Neovim' added to the context menu."
-    } else {
-        Write-Warning "Could not find nvim.exe path. Skipping 'Open with Neovim' context menu entry."
-    }
-}
 
 
