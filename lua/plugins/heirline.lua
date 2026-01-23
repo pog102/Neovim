@@ -8,14 +8,13 @@ return {
     -- local conditions = require "heirline.conditions"
     local conditions = require "heirline.conditions"
     local utils = require "heirline.utils"
-
     -- local TablineBufnr = {
     --   provider = function(self)
     --     return tostring(self.bufnr) .. ". "
     --   end,
     --   hl = "Comment",
     -- }
-
+    --
     local FileIcon = {
       init = function(self)
         local filename = self.filename
@@ -51,7 +50,7 @@ return {
         condition = function(self)
           return vim.api.nvim_get_option_value("modified", { buf = self.bufnr })
         end,
-        provider = "  ",
+        provider = "  ",
         hl = { fg = "green" },
       },
       {
@@ -114,7 +113,7 @@ return {
       end,
       { provider = " " },
       {
-        provider = " ",
+        provider = " ",
         hl = { fg = "gray" },
         on_click = {
           callback = function(_, minwid)
@@ -135,9 +134,11 @@ return {
     local TablineBufferBlock = utils.surround({ "", "" }, function(self)
       if self.is_active then
         return utils.get_highlight("TabLineSel").bg
+        -- return utils.get_highlight("NONE").bg
       else
         -- return "NONE"
         return utils.get_highlight("TabLine").bg
+        -- return utils.get_highlight("TabLine").bg
       end
     end, { TablineFileNameBlock, TablineCloseButton })
 
@@ -482,8 +483,11 @@ return {
       },
       on_click = {
         callback = function()
-          -- require("snacks").lazygit()
-          require("snacks").lazygit { focus = true }
+          -- vim.defer_fn(function()
+          require("snacks").lazygit()
+          -- vim.cmd "Lazygit"
+          -- require("snacks").lazygit.open() --{ focus = true }
+          -- end, 100)
         end,
         name = "heirline_git",
       },
@@ -509,7 +513,7 @@ return {
         local pad = math.ceil((width - #title) / 2)
         return string.rep(" ", pad) .. title .. string.rep(" ", pad)
       end,
-
+      -- TODO: make transparentt
       hl = function(self)
         if vim.api.nvim_get_current_win() == self.winid then
           return "TablineSel"
@@ -539,6 +543,17 @@ return {
     --   -- git_change = utils.get_highlight("diffChanged").fg,
     -- }
     --
+    local SessionSave = {
+      provider = " ", -- save icon
+      hl = { fg = "blue" },
+
+      on_click = {
+        callback = function()
+          require("mini.sessions").write "Session"
+        end,
+        name = "heirline_session_save",
+      },
+    }
     local Tabpage = {
       provider = function(self)
         return "%" .. self.tabnr .. "T " .. self.tabpage .. " %T"
@@ -553,7 +568,7 @@ return {
     }
 
     local TabpageClose = {
-      provider = "%999X  %X",
+      provider = "%999X  %X",
       hl = "TabLine",
     }
 
@@ -571,7 +586,8 @@ return {
     local Align = { provider = "%=" }
     -- require("heirline").load_colors(colors)
     -- ViMode = utils.surround({ "", "" }, colors.bright_bg, { ViMode })
-    local StatusLine = { ViMode, Space, FileNameBlock, Space, Diagnostics, Space, Git, Align, LSPActive }
+    local StatusLine =
+      { ViMode, Space, FileNameBlock, Space, Diagnostics, Space, Git, Align, SessionSave, Space, LSPActive }
     local TabLine = { TabLineOffset, BufferLine, TabPages }
     -- local BufferLine = utils.make_buflist(
     --   TablineBufferBlock,

@@ -22,6 +22,7 @@ return {
       require("mini.ai").setup()
       -- require("mini.jump2d").setup()
       require("mini.comment").setup {}
+      require("mini.sessions").setup { file = "Session.vim" }
       require("mini.files").setup {
         windows = {
           preview = true,

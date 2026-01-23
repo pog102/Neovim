@@ -130,6 +130,13 @@ return {
     },
     keys = {
       {
+        "gr",
+        function()
+          require("snacks").picker.lsp_references()
+        end,
+        desc = "Lazygit",
+      },
+      {
         "<leader>lg",
         function()
           require("snacks").lazygit()
