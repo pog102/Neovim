@@ -33,22 +33,47 @@ if (-not (Get-Command nvim -ErrorAction SilentlyContinue)) {
     Write-Host "Neovim is already installed."
 }
 
+# Check if Git is installed, and install it if not
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+    Write-Host "Git not found. Attempting to install with winget..."
+    try {
+        winget install Git.Git --source winget --accept-source-agreements --accept-package-agreements
+    } catch {
+        Write-Error "Failed to install Git with winget. Please install it manually."
+        exit 1
+    }
+} else {
+    Write-Host "Git is already installed."
+}
+
+# Check if Lazygit is installed, and install it if not
+if (-not (Get-Command lazygit -ErrorAction SilentlyContinue)) {
+    Write-Host "Lazygit not found. Attempting to install with winget..."
+    try {
+        winget install JesseDuffield.lazygit --source winget --accept-source-agreements --accept-package-agreements
+    } catch {
+        Write-Error "Failed to install Lazygit with winget. Please install it manually."
+    }
+} else {
+    Write-Host "Lazygit is already installed."
+}
+
 if (-not (Test-Path -Path $destinationDir)) {
     Write-Host "Creating destination directory: $destinationDir"
     New-Item -ItemType Directory -Path $destinationDir | Out-Null
 }
 
-# 4. Install Hack Nerd Font
-Write-Host "Checking for Hack Nerd Font..."
-# We check for a specific font file that is included in the Hack Nerd Font package.
-$fontCheckFile = "Hack Regular Nerd Font Complete.ttf"
+# 4. Install Fira Code Nerd Font
+Write-Host "Checking for Fira Code Nerd Font..."
+# We check for a specific font file that is included in the Fira Code Nerd Font package.
+$fontCheckFile = "Fira Code Regular Nerd Font Complete.ttf"
 if (Test-Path -Path "$($env:windir)\Fonts\$fontCheckFile") {
-    Write-Host "Hack Nerd Font appears to be already installed."
+    Write-Host "Fira Code Nerd Font appears to be already installed."
 } else {
-    Write-Host "Installing Hack Nerd Font..."
-    $fontZipUrl = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip"
-    $tempDir = "$env:TEMP\HackNerdFont"
-    $fontZipPath = "$tempDir\Hack.zip"
+    Write-Host "Installing Fira Code Nerd Font..."
+    $fontZipUrl = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip"
+    $tempDir = "$env:TEMP\FiraCodeNerdFont"
+    $fontZipPath = "$tempDir\FiraCode.zip"
 
     # Create a temporary directory for the font download
     if (-not (Test-Path -Path $tempDir)) {
@@ -58,9 +83,9 @@ if (Test-Path -Path "$($env:windir)\Fonts\$fontCheckFile") {
     # Download the font zip file
     try {
         Invoke-WebRequest -Uri $fontZipUrl -OutFile $fontZipPath
-        Write-Host "Downloaded Hack Nerd Font."
+        Write-Host "Downloaded Fira Code Nerd Font."
     } catch {
-        Write-Error "Failed to download Hack Nerd Font. Please install it manually from $fontZipUrl"
+        Write-Error "Failed to download Fira Code Nerd Font. Please install it manually from $fontZipUrl"
         # Continue with the rest of the script
     }
 
@@ -87,7 +112,7 @@ if (Test-Path -Path "$($env:windir)\Fonts\$fontCheckFile") {
 
     # Clean up the temporary directory
     Remove-Item -Path $tempDir -Recurse -Force
-    Write-Host "Hack Nerd Font installation process complete."
+    Write-Host "Fira Code Nerd Font installation process complete."
 }
 
 
