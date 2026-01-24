@@ -440,7 +440,7 @@ return {
       },
       {
         provider = function(self)
-          return self.hints > 0 and (self.hint_icon .. self.hints)
+          return self.hints > 0 and (self.hint_icon .. self.hints .. " ")
         end,
         hl = "DiagnosticHint",
       },
@@ -466,21 +466,21 @@ return {
           local count = self.status_dict.added or 0
           return count > 0 and (" " .. count .. " ")
         end,
-        hl = "GitSignsAdd",
+        hl = { fg = "git_add" },
       },
       {
         provider = function(self)
           local count = self.status_dict.removed or 0
           return count > 0 and (" " .. count .. " ")
         end,
-        hl = "GitSignsDelete",
+        hl = { fg = "git_del" },
       },
       {
         provider = function(self)
           local count = self.status_dict.changed or 0
           return count > 0 and (" " .. count .. " ")
         end,
-        hl = "GitSignsChange",
+        hl = { fg = "git_change" },
       },
       on_click = {
         callback = function()
@@ -585,6 +585,7 @@ return {
 
     local Space = { provider = " " }
     local Align = { provider = "%=" }
+    ViMode = utils.surround({ "", "" }, "bright_bg", { ViMode })
     -- require("heirline").load_colors(colors)
     -- ViMode = utils.surround({ "", "" }, colors.bright_bg, { ViMode })
     local StatusLine =

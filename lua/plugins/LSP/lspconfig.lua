@@ -53,7 +53,7 @@ return {
     --   -- local cmp_nvim_lsp = require "cmp_nvim_lsp"
     --   -- local capabilities = cmp_nvim_lsp.default_capabilities()
 
-    vim.lsp.enable "omnisharp"
+    -- vim.lsp.enable "omnisharp"
     -- vim.lsp.config("omnisharp", {
     --   cmd = { "omnisharp" }, -- or full path: "~/.dotnet/tools/omnisharp"
     --   -- Optional settings
