@@ -705,7 +705,7 @@ return {
       Space,
       Git,
       Align,
-      SessionSave,
+      -- SessionSave,
       Space,
       CodeCompanion,
       Space,
