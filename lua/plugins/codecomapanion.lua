@@ -1,11 +1,13 @@
 return {
   "olimorris/codecompanion.nvim",
   -- enabled = false,
+  version = "^18.0.0",
   opts = {},
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
-    "github/copilot.vim",
+    -- "github/copilot.vim",
+    "ravitemer/mcphub.nvim",
   },
   config = function()
     require("codecompanion").setup {
