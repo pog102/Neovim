@@ -3,6 +3,24 @@ local opts = { noremap = true, silent = true }
 --   -- require("snacks").terminal.toggle()
 --   --              require("floaterm.api").cycle_term_bufs "prev"
 -- end, { noremap = true, silent = true })
+--
+-- Window navigation
+vim.keymap.set("n", "<A-Enter>", "<cmd>vnew<CR>", opts)
+
+vim.keymap.set("n", "<A-Left>", "<cmd>wincmd W<CR>", opts)
+vim.keymap.set("n", "<A-Right>", "<cmd>wincmd w<CR>", opts)
+vim.keymap.set("n", "<A-Up>", "<cmd>wincmd k<CR>", opts)
+vim.keymap.set("n", "<A-Down>", "<cmd>wincmd j<CR>", opts)
+
+-- Window resizing
+vim.keymap.set("n", "<A-S-Left>", "<cmd>vertical resize -2<CR>", opts)
+vim.keymap.set("n", "<A-S-Right>", "<cmd>vertical resize +2<CR>", opts)
+vim.keymap.set("n", "<A-S-Up>", "<cmd>resize +2<CR>", opts)
+vim.keymap.set("n", "<A-S-Down>", "<cmd>resize -2<CR>", opts)
+for i = 1, 9 do
+  vim.api.nvim_set_keymap("n", "<A-" .. i .. ">", i .. "gt", { noremap = true, silent = true })
+end
+
 vim.g.pleader = " "
 vim.g.mapleader = " "
 vim.g.plocalleader = " "

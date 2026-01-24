@@ -11,7 +11,7 @@ return {
       suggestion = {
         auto_trigger = true,
         keymap = {
-          accept = "<M-Enter>", -- Alt-Eter to accept suggestion
+          accept = "<S-Enter>", -- Alt-Eter to accept suggestion
           next = "<M-]>", -- next suggestion
           prev = "<M-[>", -- previous suggestion
         },
