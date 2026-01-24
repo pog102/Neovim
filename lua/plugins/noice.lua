@@ -121,7 +121,8 @@ return {
           checker = true,
         },
         signature = {
-          enabled = true,
+          -- enabled = true,
+          enabled = false,
         },
       }
     end,

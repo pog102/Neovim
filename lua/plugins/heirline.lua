@@ -500,12 +500,12 @@ return {
         local bufnr = vim.api.nvim_win_get_buf(win)
         self.winid = win
 
-        if vim.bo[bufnr].filetype == "NvimTree" then
-          self.title = "NvimTree"
-          return true
-          -- elseif vim.bo[bufnr].filetype == "TagBar" then
-          --     ...
-        end
+        -- if vim.bo[bufnr].filetype == "NvimTree" then
+        --   self.title = "NvimTree"
+        --   return true
+        --   -- elseif vim.bo[bufnr].filetype == "TagBar" then
+        --   --     ...
+        -- end
       end,
 
       provider = function(self)

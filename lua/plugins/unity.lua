@@ -1,6 +1,6 @@
 return {
   "apyra/nvim-unity-sync",
-  enable = true,
+  enabled = false,
   config = function()
     require("unity.plugin").setup {
       -- Configs here (Optional)
