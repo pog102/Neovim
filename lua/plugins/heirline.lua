@@ -711,6 +711,7 @@ return {
       Space,
       LSPActive,
     }
+    -- TODO: TabLineOffset
     local TabLine = { TabLineOffset, BufferLine, TabPages }
     -- local BufferLine = utils.make_buflist(
     --   TablineBufferBlock,

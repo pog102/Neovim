@@ -1,4 +1,5 @@
 return {
+  enabed = true,
   "nvzone/floaterm",
   dependencies = "nvzone/volt",
   opts = { border = true, size = { h = 75, w = 85 } },
