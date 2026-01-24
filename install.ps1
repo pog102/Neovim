@@ -82,6 +82,18 @@ if (-not (Get-Command gcc -ErrorAction SilentlyContinue)) {
     Write-Host "gcc is already installed."
 }
 
+# Check if node is installed, and install it if not
+if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
+    Write-Host "Node.js not found. Attempting to install with winget..."
+    try {
+        winget install OpenJS.NodeJS --source winget --accept-source-agreements --accept-package-agreements
+    } catch {
+        Write-Error "Failed to install Node.js with winget. Please install it manually."
+    }
+} else {
+    Write-Host "Node.js is already installed."
+}
+
 if (-not (Test-Path -Path $destinationDir)) {
     Write-Host "Creating destination directory: $destinationDir"
     New-Item -ItemType Directory -Path $destinationDir | Out-Null
