@@ -94,6 +94,45 @@ if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
     Write-Host "Node.js is already installed."
 }
 
+# Set GITHUB_COPILOT_TOKEN environment variable from Secrets.txt
+Write-Host "Checking for GITHUB_COPILOT_TOKEN environment variable..."
+$tokenName = "GITHUB_COPILOT_TOKEN"
+$tokenScope = "User"
+$secretsFile = Join-Path $PSScriptRoot "Secrets.txt"
+
+$existingToken = [System.Environment]::GetEnvironmentVariable($tokenName, $tokenScope)
+
+if ($existingToken) {
+    Write-Host "$tokenName is already set."
+} else {
+    if (Test-Path $secretsFile) {
+        try {
+            $secretsContent = Get-Content $secretsFile -ErrorAction Stop
+            $tokenLine = $secretsContent | Where-Object { $_.Trim() -like "$tokenName=*" } | Select-Object -First 1
+            
+            if ($tokenLine) {
+                $tokenValue = ($tokenLine -split '=', 2)[1].Trim()
+                if ([string]::IsNullOrWhiteSpace($tokenValue)) {
+                    Write-Warning "Found '$tokenName=' in $secretsFile but the value is empty. The environment variable was not set."
+                } else {
+                    Write-Host "Setting $tokenName from $secretsFile."
+                    [System.Environment]::SetEnvironmentVariable($tokenName, $tokenValue, $tokenScope)
+                    Write-Host "$tokenName has been set for the current user."
+                    Write-Host "You may need to restart your terminal for the changes to take effect."
+                }
+            } else {
+                Write-Warning "Could not find a line starting with '$tokenName=' in $secretsFile. The environment variable was not set."
+            }
+        } catch {
+            Write-Error "Failed to read $secretsFile or set the environment variable. Error: $_"
+        }
+    } else {
+        Write-Warning "$secretsFile not found. The GITHUB_COPILOT_TOKEN environment variable was not set."
+        Write-Warning "Please create 'Secrets.txt' in the same directory as this script with the content: GITHUB_COPILOT_TOKEN=your_token_here"
+    }
+}
+
+
 if (-not (Test-Path -Path $destinationDir)) {
     Write-Host "Creating destination directory: $destinationDir"
     New-Item -ItemType Directory -Path $destinationDir | Out-Null
