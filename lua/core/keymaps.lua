@@ -12,6 +12,10 @@ vim.keymap.set("n", "<A-Right>", "<cmd>wincmd w<CR>", opts)
 vim.keymap.set("n", "<A-Up>", "<cmd>wincmd k<CR>", opts)
 vim.keymap.set("n", "<A-Down>", "<cmd>wincmd j<CR>", opts)
 
+vim.api.nvim_create_user_command("Messages", function()
+  require("snacks").notifier.show_history()
+end, {})
+
 -- Window resizing
 vim.keymap.set("n", "<A-S-Left>", "<cmd>vertical resize -2<CR>", opts)
 vim.keymap.set("n", "<A-S-Right>", "<cmd>vertical resize +2<CR>", opts)
