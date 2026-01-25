@@ -5,7 +5,7 @@ local opts = { noremap = true, silent = true }
 -- end, { noremap = true, silent = true })
 --
 -- Window navigation
-vim.keymap.set("n", "<A-Enter>", "<cmd>vnew<CR>", opts)
+vim.keymap.set("n", "<A-Enter>", "<cmd>vsplit<CR>", opts)
 
 vim.keymap.set("n", "<A-Left>", "<cmd>wincmd W<CR>", opts)
 vim.keymap.set("n", "<A-Right>", "<cmd>wincmd w<CR>", opts)
