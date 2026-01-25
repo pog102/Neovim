@@ -2,6 +2,8 @@
 
 # This script installs Neovim and the configuration files to the correct location on Windows.
 
+# --- Configuration ---
+# Check if running on Windows
 # Source directory (where this script is located)
 $sourceDir = $PSScriptRoot
 
@@ -141,7 +143,7 @@ if (-not (Test-Path -Path $destinationDir)) {
 # 4. Install Fira Code Nerd Font
 Write-Host "Checking for Fira Code Nerd Font..."
 # We check for a specific font file that is included in the Fira Code Nerd Font package.
-$fontCheckFile = "Fira Code Regular Nerd Font Complete.ttf"
+$fontCheckFile = "Hack Nerd Font.ttf"
 if (Test-Path -Path "$($env:windir)\Fonts\$fontCheckFile") {
     Write-Host "Fira Code Nerd Font appears to be already installed."
 } else {

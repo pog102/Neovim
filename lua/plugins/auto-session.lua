@@ -8,6 +8,7 @@ return {
   config = function()
     require("auto-session").setup {
       log_level = "error",
+      show_auto_restore_notif = false, -- Whether to show a notification when auto-restoring
       auto_save = true, -- Enables/disables auto saving session on exit
       auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
       bypass_save_filetypes = { "Dashboard", "alpha" },

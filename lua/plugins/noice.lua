@@ -5,15 +5,15 @@ return {
     enabled = true,
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      "rcarriga/nvim-notify",
+      -- "rcarriga/nvim-notify",
       -- "MunifTanjim/nui.nvim",
     },
     config = function()
       local noice = require "noice"
 
-      require("notify").setup {
-        background_colour = "#000000",
-      }
+      -- require("notify").setup {
+      --   background_colour = "#000000",
+      -- }
       noice.setup {
         -- popupmenu = {
         --   ---@type 'nui'|'cmp'
@@ -83,30 +83,32 @@ return {
           -- inc_rename = false, -- enables an input dialog for inc-rename.nvim
           -- lsp_doc_border = false, -- add a border to hover docs and signature help
         },
-        -- routes = {
-        --   {
-        --     -- filter = {
-        --     --   event = "msg_show",
-        --     --   any = {
-        --     --     { find = "%d+L, %d+B" },
-        --     --     { find = "; after #%d+" },
-        --     --     { find = "; before #%d+" },
-        --     --     { find = "%d fewer lines" },
-        --     --     { find = "%d more lines" },
-        --     --   },
-        --     -- },
-        --     opts = { skip = true },
-        --   },
-        -- },
+        routes = {
+          {
+            filter = {
+              event = "msg_show",
+              any = {
+                { find = "%d+L, %d+B" },
+                { find = "; after #%d+" },
+                { find = "; before #%d+" },
+                { find = "%d fewer lines" },
+                { find = "%d more lines" },
+                { find = "Authenticated as GitHub user" },
+                -- { find = "Restored session" },
+              },
+            },
+            opts = { skip = true },
+          },
+        },
         messages = {
           -- NOTE: If you enable messages, then the cmdline is enabled automatically.
           -- This is a current Neovim limitation.
           enabled = true, -- enables the Noice messages UI
-          view = "notify", -- default view for messages
-          view_error = "notify", -- view for errors
-          view_warn = "notify", -- view for warnings
-          view_history = "messages", -- view for :messages
-          view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+          -- view = "notify", -- default view for messages
+          -- view_error = "notify", -- view for errors
+          -- view_warn = "notify", -- view for warnings
+          -- view_history = "messages", -- view for :messages
+          -- view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
         },
         notify = {
           -- Noice can be used as `vim.notify` so you can route any notification like other messages
@@ -115,7 +117,7 @@ return {
           -- The default routes will forward notifications to nvim-notify
           -- Benefit of using Noice for this is the routing and consistent history view
           enabled = true,
-          view = "notify",
+          -- view = "notify",
         },
         health = {
           checker = true,

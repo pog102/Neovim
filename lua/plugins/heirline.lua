@@ -501,6 +501,18 @@ return {
     --     },
     --   },
     -- }
+    local Notifications = {
+      provider = " ", -- save icon
+      hl = { fg = "blue" },
+
+      on_click = {
+        callback = function()
+          require("snacks").picker.notifications { confirm = { "yank", "close" } }
+          -- require("snacks").picker.notifications {}
+        end,
+        name = "heirline_notifications",
+      },
+    }
     local Diagnostics = {
 
       condition = conditions.has_diagnostics,
@@ -652,17 +664,17 @@ return {
       git_change = utils.get_highlight("diffChanged").fg,
     }
     --
-    local SessionSave = {
-      provider = " ", -- save icon
-      hl = { fg = "blue" },
-
-      on_click = {
-        callback = function()
-          require("mini.sessions").write "Session"
-        end,
-        name = "heirline_session_save",
-      },
-    }
+    -- local SessionSave = {
+    --   provider = " ", -- save icon
+    --   hl = { fg = "blue" },
+    --
+    --   on_click = {
+    --     callback = function()
+    --       require("mini.sessions").write "Session"
+    --     end,
+    --     name = "heirline_session_save",
+    --   },
+    -- }
     local Tabpage = {
       provider = function(self)
         return "%" .. self.tabnr .. "T " .. self.tabpage .. " %T"
@@ -705,7 +717,7 @@ return {
       Space,
       Git,
       Align,
-      -- SessionSave,
+      Notifications,
       Space,
       CodeCompanion,
       Space,

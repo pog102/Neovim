@@ -1,37 +1,37 @@
 return {
 
-  {
-    "aznhe21/actions-preview.nvim",
-    enabled = true,
-    event = "LspAttach",
-    opts = {},
-    config = function()
-      require("actions-preview").setup {
-        diff = {
-          ctxlen = 3,
-        },
-
-        backend = { "snacks" },
-        snacks = {
-          layout = { preview = false, preset = "dropdown" },
-          -- layout = {
-          --   sorting_strategy = "ascending",
-          --   layout_strategy = "vertical",
-          --   layout_config = {
-          --     width = 0.8,
-          --     height = 0.9,
-          --     prompt_position = "top",
-          --     preview_cutoff = 20,
-          --     preview_height = function(_, _, max_lines)
-          --       return max_lines - 15
-          --     end,
-          --   },
-          -- },
-        },
-      }
-      vim.keymap.set({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions)
-    end,
-  },
+  -- {
+  --   "aznhe21/actions-preview.nvim",
+  --   enabled = true,
+  --   event = "LspAttach",
+  --   opts = {},
+  --   config = function()
+  --     require("actions-preview").setup {
+  --       diff = {
+  --         ctxlen = 3,
+  --       },
+  --
+  --       backend = { "snacks" },
+  --       snacks = {
+  --         layout = { preview = false, preset = "dropdown" },
+  --         -- layout = {
+  --         --   sorting_strategy = "ascending",
+  --         --   layout_strategy = "vertical",
+  --         --   layout_config = {
+  --         --     width = 0.8,
+  --         --     height = 0.9,
+  --         --     prompt_position = "top",
+  --         --     preview_cutoff = 20,
+  --         --     preview_height = function(_, _, max_lines)
+  --         --       return max_lines - 15
+  --         --     end,
+  --         --   },
+  --         -- },
+  --       },
+  --     }
+  --     vim.keymap.set({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions)
+  --   end,
+  -- },
   {
     "folke/snacks.nvim",
     priority = 1000,
@@ -60,8 +60,20 @@ return {
         -- exclude = { "typst" },
       },
       rename = { enabled = true },
+
       picker = {
         enabled = true,
+        --   notifications = {
+        --     enabled = true,
+        --   },
+        sources = {
+          -- yank = { Action = { notify = false } },
+          -- actions = { yank = { notify = false } },
+          notifications = {
+            enabled = true,
+            confirm = { "yank", "close" },
+          },
+        },
       },
       image = {
         enabled = false,
@@ -106,6 +118,18 @@ return {
       -- },
       -- statuscolumn={enabled=true},
       indent = { enabled = true, only_scope = true },
+      notifier = {
+        enabled = true,
+        exclude = { "Yanked to register" },
+        -- filter = function(notif)
+        --   -- hide yank notifications
+        --   if notif.msg:match "Yanked to register" then
+        --     return false
+        --   end
+        --   return true
+        -- end,
+        -- confirm = { "copy", "close" },
+      },
       dashboard = {
         enabled = true,
         preset = {
