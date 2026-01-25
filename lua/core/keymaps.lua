@@ -5,13 +5,17 @@ local opts = { noremap = true, silent = true }
 -- end, { noremap = true, silent = true })
 --
 -- Window navigation
-vim.keymap.set("n", "<A-Enter>", "<cmd>vsplit<CR>", opts)
+-- Keybinding: <A-d> to open Snacks picker with recent files
+vim.keymap.set("n", "<A-d>", function()
+  require("snacks.picker").recent()
+end, { desc = "Snacks: Find Recent Files" })
+vim.keymap.set("n", "<C-v>", "<cmd>vsplit<CR>", opts)
 
 vim.keymap.set("n", "<A-Left>", "<cmd>wincmd W<CR>", opts)
 vim.keymap.set("n", "<A-Right>", "<cmd>wincmd w<CR>", opts)
 vim.keymap.set("n", "<A-Up>", "<cmd>wincmd k<CR>", opts)
 vim.keymap.set("n", "<A-Down>", "<cmd>wincmd j<CR>", opts)
-
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
 vim.api.nvim_create_user_command("Messages", function()
   require("snacks").notifier.show_history()
 end, {})

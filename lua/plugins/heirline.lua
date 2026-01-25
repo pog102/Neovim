@@ -4,7 +4,7 @@ return {
   config = function()
     vim.keymap.set("n", "<Tab>", "<cmd>bnext<CR>") -- show definition, references
     vim.keymap.set("n", "<S-Tab>", "<cmd>bprev<CR>") -- show definition, references
-    vim.keymap.set("n", "<A-q>", "<cmd>bdelete<CR>") -- show definition, references
+    vim.keymap.set("n", "<A-q>", "<cmd>bdelete!<CR>") -- show definition, references
     -- local colors = require("tokyonight.colors").setup() -- wink
     -- local conditions = require "heirline.conditions"
     local conditions = require "heirline.conditions"
