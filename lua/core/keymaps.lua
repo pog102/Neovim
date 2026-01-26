@@ -6,6 +6,10 @@ local opts = { noremap = true, silent = true }
 --
 -- Window navigation
 -- Keybinding: <A-d> to open Snacks picker with recent files
+-- keys = { "<c-/>", mode = { "n", "t" }, "<cmd>ToggleTerm<CR>", desc = "Toggle terminal" },
+
+vim.keymap.set({ "n", "t" }, "<C-/>", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal (Snacks)" })
+
 vim.keymap.set("n", "<A-d>", function()
   require("snacks.picker").recent()
 end, { desc = "Snacks: Find Recent Files" })

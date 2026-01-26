@@ -7,7 +7,7 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
     -- "github/copilot.vim",
-    "ravitemer/mcphub.nvim",
+    -- "ravitemer/mcphub.nvim",
   },
   config = function()
     require("codecompanion").setup {

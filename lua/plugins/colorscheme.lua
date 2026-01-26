@@ -1,66 +1,69 @@
 return {
   {
-    enabled = true,
-    -- enabled = false,
-    "folke/tokyonight.nvim",
-    lazy = true,
-    priority = 30,
-    opts = {},
-    config = function()
-      local transparentcy = not vim.g.neovide
-      require("tokyonight").setup {
-        -- use the night style
-        transparent = transparentcy, -- Enable this to disable setting the background color
-
-        -- style = "night",
-        style = "storm",
-        styles = {
-          sidebars = "transparent", -- style for sidebars, see below
-          floats = "transparent", -- style for floating windows
-          -- comments = { italic = false },
-          -- keywords = { italic = false },
-          -- sidebars = transparent and "transparent",
-          -- floats = transparent and "transparent",
-        },
-      }
-    end,
+    "RRethy/base16-nvim",
   },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 }, -- Using Lazy
-  {
-    "navarasu/onedark.nvim",
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      require("onedark").setup {
-        style = "deep",
-      }
-      require("onedark").load()
-    end,
-  },
-  {
-    "rebelot/kanagawa.nvim",
-    -- require("kanagawa").setup {
-    --   compile = false, -- enable compiling the colorscheme
-    --   undercurl = true, -- enable undercurls
-    --   commentStyle = { italic = true },
-    --   functionStyle = {},
-    --   keywordStyle = { italic = true },
-    --   statementStyle = { bold = true },
-    --   typeStyle = {},
-    --   transparent = false, -- do not set background color
-    --   dimInactive = false, -- dim inactive window `:h hl-NormalNC`
-    --   terminalColors = true, -- define vim.g.terminal_color_{0,17}
-    --   colors = { -- add/modify theme and palette colors
-    --     palette = {},
-    --     theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-    --   },
-    --   overrides = function(colors) -- add/modify highlights
-    --     return {}
-    --   end,
-    --   theme = "wave", -- Load "wave" theme
-    --   background = { -- map the value of 'background' option to a theme
-    --     dark = "wave", -- try "dragon" !
-    --     light = "lotus",
-    --   },
-    -- },
-  },
+  -- {
+  --   enabled = true,
+  --   -- enabled = false,
+  --   "folke/tokyonight.nvim",
+  --   lazy = true,
+  --   priority = 30,
+  --   opts = {},
+  --   config = function()
+  --     local transparentcy = not vim.g.neovide
+  --     require("tokyonight").setup {
+  --       -- use the night style
+  --       transparent = transparentcy, -- Enable this to disable setting the background color
+  --
+  --       -- style = "night",
+  --       style = "storm",
+  --       styles = {
+  --         sidebars = "transparent", -- style for sidebars, see below
+  --         floats = "transparent", -- style for floating windows
+  --         -- comments = { italic = false },
+  --         -- keywords = { italic = false },
+  --         -- sidebars = transparent and "transparent",
+  --         -- floats = transparent and "transparent",
+  --       },
+  --     }
+  --   end,
+  -- },
+  -- { "catppuccin/nvim", name = "catppuccin", priority = 1000 }, -- Using Lazy
+  -- {
+  --   "navarasu/onedark.nvim",
+  --   priority = 1000, -- make sure to load this before all the other start plugins
+  --   config = function()
+  --     require("onedark").setup {
+  --       style = "deep",
+  --     }
+  --     require("onedark").load()
+  --   end,
+  -- },
+  -- {
+  --   "rebelot/kanagawa.nvim",
+  --   -- require("kanagawa").setup {
+  --   --   compile = false, -- enable compiling the colorscheme
+  --   --   undercurl = true, -- enable undercurls
+  --   --   commentStyle = { italic = true },
+  --   --   functionStyle = {},
+  --   --   keywordStyle = { italic = true },
+  --   --   statementStyle = { bold = true },
+  --   --   typeStyle = {},
+  --   --   transparent = false, -- do not set background color
+  --   --   dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+  --   --   terminalColors = true, -- define vim.g.terminal_color_{0,17}
+  --   --   colors = { -- add/modify theme and palette colors
+  --   --     palette = {},
+  --   --     theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+  --   --   },
+  --   --   overrides = function(colors) -- add/modify highlights
+  --   --     return {}
+  --   --   end,
+  --   --   theme = "wave", -- Load "wave" theme
+  --   --   background = { -- map the value of 'background' option to a theme
+  --   --     dark = "wave", -- try "dragon" !
+  --   --     light = "lotus",
+  --   --   },
+  --   -- },
+  -- },
 }

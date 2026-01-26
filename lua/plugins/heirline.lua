@@ -16,6 +16,31 @@ return {
     --   hl = "Comment",
     -- }
     --
+
+    local colors = {
+      bright_bg = utils.get_highlight("Folded").bg,
+      bright_fg = utils.get_highlight("Folded").fg,
+      -- red = utils.get_highlight("DiagnosticError").fg,
+      Visual = utils.get_highlight("Visual").bg,
+
+      red = utils.get_highlight("DiagnosticError").fg,
+      dark_red = utils.get_highlight("DiffDelete").bg,
+      green = utils.get_highlight("String").fg,
+      blue = utils.get_highlight("Function").fg,
+      gray = utils.get_highlight("NonText").fg,
+      orange = utils.get_highlight("Constant").fg,
+      purple = utils.get_highlight("Statement").fg,
+      cyan = utils.get_highlight("Special").fg,
+      diag_warn = utils.get_highlight("DiagnosticWarn").fg,
+      diag_error = utils.get_highlight("DiagnosticError").fg,
+      diag_hint = utils.get_highlight("DiagnosticHint").fg,
+      diag_info = utils.get_highlight("DiagnosticInfo").fg,
+      git_del = utils.get_highlight("DiffRemoved").fg,
+      git_add = utils.get_highlight("DiffAdded").fg,
+      git_change = utils.get_highlight("DiffChange").fg,
+      StatusLine = utils.get_highlight("StatusLine").bg,
+      Sting = utils.get_highlight("String").fg,
+    }
     local FileIcon = {
       init = function(self)
         local filename = self.filename
@@ -66,7 +91,7 @@ return {
             return ""
           end
         end,
-        hl = { fg = "orange" },
+        hl = { fg = colors.orange },
       },
     }
 
@@ -344,11 +369,11 @@ return {
           t = "T",
         },
         mode_colors = {
-          n = "red",
-          i = "green",
-          v = "cyan",
-          V = "cyan",
-          ["\22"] = "cyan",
+          n = colors.StatusLine,
+          i = colors.Sting,
+          v = colors.Visual,
+          V = colors.Visual,
+          ["\22"] = colors.Visual,
           c = "orange",
           s = "purple",
           S = "purple",
@@ -586,21 +611,21 @@ return {
           local count = self.status_dict.added or 0
           return count > 0 and (" " .. count .. " ")
         end,
-        hl = { fg = "git_add" },
+        hl = { fg = colors.git_add },
       },
       {
         provider = function(self)
           local count = self.status_dict.removed or 0
           return count > 0 and (" " .. count .. " ")
         end,
-        hl = { fg = "git_del" },
+        hl = { fg = colors.git_del },
       },
       {
         provider = function(self)
           local count = self.status_dict.changed or 0
           return count > 0 and (" " .. count .. " ")
         end,
-        hl = { fg = "git_change" },
+        hl = { fg = colors.git_change },
       },
       on_click = {
         callback = function()
@@ -644,25 +669,6 @@ return {
         end
       end,
     }
-    local colors = {
-      bright_bg = utils.get_highlight("Folded").bg,
-      bright_fg = utils.get_highlight("Folded").fg,
-      red = utils.get_highlight("DiagnosticError").fg,
-      dark_red = utils.get_highlight("DiffDelete").bg,
-      green = utils.get_highlight("String").fg,
-      blue = utils.get_highlight("Function").fg,
-      gray = utils.get_highlight("NonText").fg,
-      orange = utils.get_highlight("Constant").fg,
-      purple = utils.get_highlight("Statement").fg,
-      cyan = utils.get_highlight("Special").fg,
-      diag_warn = utils.get_highlight("DiagnosticWarn").fg,
-      diag_error = utils.get_highlight("DiagnosticError").fg,
-      diag_hint = utils.get_highlight("DiagnosticHint").fg,
-      diag_info = utils.get_highlight("DiagnosticInfo").fg,
-      git_del = utils.get_highlight("diffDeleted").fg,
-      git_add = utils.get_highlight("diffAdded").fg,
-      git_change = utils.get_highlight("diffChanged").fg,
-    }
     --
     -- local SessionSave = {
     --   provider = " ", -- save icon
@@ -702,7 +708,15 @@ return {
       utils.make_tablist(Tabpage),
       TabpageClose,
     }
-
+    -- local TerminalName = {
+    --   -- we could add a condition to check that buftype == 'terminal'
+    --   -- or we could do that later (see #conditional-statuslines below)
+    --   provider = function()
+    --     local tname, _ = vim.api.nvim_buf_get_name(0):gsub(".*:", "")
+    --     return " " .. tname
+    --   end,
+    --   hl = { fg = "blue", bold = true },
+    -- }
     local Space = { provider = " " }
     local Align = { provider = "%=" }
     ViMode = utils.surround({ "", "" }, "bright_bg", { ViMode })
