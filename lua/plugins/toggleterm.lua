@@ -17,7 +17,7 @@ return {
       persist_size = true,
       direction = "vertical",
       close_on_exit = true,
-      shell = vim.o.shell,
+      -- shell = vim.o.shell,
     }
   end,
 }

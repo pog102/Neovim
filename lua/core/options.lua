@@ -7,9 +7,9 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.opt_local.spell = true
   end,
 })
-if vim.fn.has "win32" == 1 then
-  vim.opt.shell = vim.fn.executable "pwsh" and "pwsh" or "powershell"
-end
+-- if vim.fn.has "win32" == 1 then
+--   vim.opt.shell = vim.fn.executable "pwsh" and "pwsh" or "powershell"
+-- end
 -- vim.g.neovide_padding_top = 20
 vim.g.neovide_padding_bottom = 20
 vim.g.neovide_padding_right = 20
@@ -100,7 +100,11 @@ vim.g.editorconfig = true
 -- open help in vertical split
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "help",
-  command = "wincmd L",
+  callback = function()
+    vim.cmd "wincmd L" -- move help to the right
+    -- vim.cmd "vertical resize vim.o.columns * 0.35" -- set width (columns)
+    vim.cmd("vertical resize " .. math.floor(vim.o.columns * 0.53))
+  end,
 })
 -- no auto continue comments on new line
 vim.api.nvim_create_autocmd("FileType", {
@@ -141,3 +145,9 @@ vim.api.nvim_create_autocmd("FileType", {
 --     vim.lsp.buf.clear_references()
 --   end,
 -- })
+-- if vim.fn.has "win32" ~= 1 then
+--   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+--   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+--   vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+--   vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
+-- end

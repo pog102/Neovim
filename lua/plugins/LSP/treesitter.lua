@@ -1,20 +1,20 @@
 return {
-  {
-    "OXY2DEV/markview.nvim",
-    enabled = false,
-    priority = 49,
-    lazy = false,
-    opts = {
-      preview = {
-        filetypes = { "typst", "markdown", "codecompanion" },
-        ignore_buftypes = {},
-      },
-    },
-  },
+  -- {
+  --   "OXY2DEV/markview.nvim",
+  --   enabled = false,
+  --   priority = 49,
+  --   lazy = false,
+  --   opts = {
+  --     preview = {
+  --       filetypes = { "typst", "markdown", "codecompanion" },
+  --       ignore_buftypes = {},
+  --     },
+  --   },
+  -- },
   {
     "nvim-treesitter/nvim-treesitter",
     -- priority = 2,
-    dependencies = { "OXY2DEV/markview.nvim" },
+    -- dependencies = { "OXY2DEV/markview.nvim" },
     -- lazy = false,
     event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
@@ -29,7 +29,11 @@ return {
         },
         -- enable indentation
         indent = { enable = true },
-
+        textobjects = {
+          select = {
+            enable = false,
+          },
+        },
         -- ensure these languages parsers are installed
         ensure_installed = {
           -- "json",

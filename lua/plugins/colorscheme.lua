@@ -1,7 +1,36 @@
 return {
-  {
-    "RRethy/base16-nvim",
-  },
+  "RRethy/base16-nvim",
+  -- if vim.fn.has "win32" ~= 1 then
+  --   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+  --   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+  --   vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+  --   vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
+  -- end
+  -- config = function()
+  --   -- vim.cmd.colorscheme "base16-tomorrow-night"
+  --   local transparent = {
+  --     "Normal",
+  --     "NormalNC",
+  --     "NormalFloat",
+  --     "SignColumn",
+  --     "EndOfBuffer",
+  --     "MsgArea",
+  --     "FloatBorder",
+  --     "Pmenu",
+  --     "PmenuSel",
+  --     "WinSeparator",
+  --   }
+  --
+  --   for _, group in ipairs(transparent) do
+  --     vim.api.nvim_set_hl(0, group, { bg = "none" })
+  --   end
+  --   -- if vim.fn.has "win32" ~= 1 then
+  --   --   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+  --   --   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+  --   --   vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+  --   --   vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
+  --   -- end
+  -- end,
   -- {
   --   enabled = true,
   --   -- enabled = false,
