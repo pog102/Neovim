@@ -7,9 +7,9 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.opt_local.spell = true
   end,
 })
--- vim.g.neovide_text_gamma = 1.0
--- vim.g.neovide_text_contrast = 0.5
-
+if vim.fn.has "win32" == 1 then
+  vim.opt.shell = vim.fn.executable "pwsh" and "pwsh" or "powershell"
+end
 -- vim.g.neovide_padding_top = 20
 vim.g.neovide_padding_bottom = 20
 vim.g.neovide_padding_right = 20
@@ -97,13 +97,47 @@ vim.g.editorconfig = true
 --     vim.lsp.buf.format({ async = true })
 --   end,
 -- })
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  pattern = "*.txt",
+-- open help in vertical split
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "help",
+  command = "wincmd L",
+})
+-- no auto continue comments on new line
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("no_auto_comment", {}),
   callback = function()
-    if vim.bo.filetype == "help" then
-      vim.cmd "wincmd L" -- move help window to right first
-      -- vim.cmd "wincmd H" -- then move it to the left
-      vim.cmd "vertical resize 80" -- optional: set a good width
-    end
+    vim.opt_local.formatoptions:remove { "c", "r", "o" }
   end,
 })
+-- ide like highlight when stopping cursor
+-- vim.api.nvim_create_autocmd("CursorMoved", {
+--   group = vim.api.nvim_create_augroup("LspReferenceHighlight", { clear = true }),
+--   desc = "Highlight references under cursor",
+--   callback = function()
+--     -- Only run if the cursor is not in insert mode
+--     if vim.fn.mode() ~= "i" then
+--       local clients = vim.lsp.get_clients { bufnr = 0 }
+--       local supports_highlight = false
+--       for _, client in ipairs(clients) do
+--         if client.server_capabilities.documentHighlightProvider then
+--           supports_highlight = true
+--           break -- Found a supporting client, no need to check others
+--         end
+--       end
+--
+--       -- 3. Proceed only if an LSP is active AND supports the feature
+--       if supports_highlight then
+--         vim.lsp.buf.clear_references()
+--         vim.lsp.buf.document_highlight()
+--       end
+--     end
+--   end,
+-- })
+-- -- ide like highlight when stopping cursor
+-- vim.api.nvim_create_autocmd("CursorMovedI", {
+--   group = "LspReferenceHighlight",
+--   desc = "Clear highlights when entering insert mode",
+--   callback = function()
+--     vim.lsp.buf.clear_references()
+--   end,
+-- })

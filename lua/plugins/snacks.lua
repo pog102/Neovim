@@ -66,6 +66,26 @@ return {
         --   notifications = {
         --     enabled = true,
         --   },
+        yank = {
+          Action = {
+            notify = false,
+          },
+        },
+        win = {
+          input = {
+            keys = {
+              ["<c-s>"] = { "edit_vsplit", mode = { "i", "n" } },
+            },
+            b = {
+              minipairs_disable = true,
+            },
+          },
+          -- list = {
+          --   keys = {
+          --     ["<c-s>"] = "edit_vsplit",
+          --   },
+          -- },
+        },
         sources = {
           -- yank = { Action = { notify = false } },
           -- actions = { yank = { notify = false } },
