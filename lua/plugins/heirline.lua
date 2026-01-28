@@ -263,7 +263,19 @@ return {
         },
       },
     }
+    local Achiements = {
+      provider = function()
+        return require("triforce.lualine").achievements { icon = " " }
+      end,
+    }
 
+    local Level = {
+      provider = function()
+        return require("triforce.lualine").level {
+          show = { percent = false },
+        }
+      end,
+    }
     -- The final touch!
     local TablineBufferBlock = utils.surround({ "", "" }, function(self)
       if self.is_active then
@@ -722,6 +734,16 @@ return {
     ViMode = utils.surround({ "", "" }, "bright_bg", { ViMode })
     -- require("heirline").load_colors(colors)
     -- ViMode = utils.surround({ "", "" }, colors.bright_bg, { ViMode })
+
+    local TriforceStatusline = {
+      on_click = {
+        callback = function()
+          require("triforce").show_profile()
+        end,
+        name = "heirline_triforce_statusline",
+      },
+      { Level, Space, Achiements },
+    }
     local StatusLine = {
       ViMode,
       Space,
@@ -730,6 +752,8 @@ return {
       Diagnostics,
       Space,
       Git,
+      Align,
+      TriforceStatusline,
       Align,
       Notifications,
       Space,

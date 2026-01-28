@@ -16,7 +16,7 @@ end
 vim.keymap.set("n", "<A-d>", function()
   require("snacks.picker").recent()
 end, { desc = "Snacks: Find Recent Files" })
-vim.keymap.set("n", "<C-v>", "<cmd>vsplit<CR>", opts)
+vim.keymap.set("n", "<C-s>", "<cmd>vsplit<CR>", opts)
 
 vim.keymap.set("n", "<A-Left>", "<cmd>wincmd W<CR>", opts)
 vim.keymap.set("n", "<A-Right>", "<cmd>wincmd w<CR>", opts)
