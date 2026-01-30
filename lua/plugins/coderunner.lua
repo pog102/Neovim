@@ -1,4 +1,5 @@
 return {
+  enable = true,
   "CRAG666/code_runner.nvim",
   config = function()
     require("code_runner").setup {
@@ -18,12 +19,17 @@ return {
         },
         python = "python3 -u",
         typescript = "deno run",
-        rust = {
+        c = {
           "cd $dir &&",
-          "rustc $fileName &&",
-          "$dir/$fileNameWithoutExt",
+          "gcc $fileName -o $fileNameWithoutExt &&",
+          "./$fileNameWithoutExt",
         },
-        c = "cd $dir && gcc $fileName -o /tmp/$fileNameWithoutExt && /tmp/$fileNameWithoutExt",
+        -- rust = {
+        --   "cd $dir &&",
+        --   "rustc $fileName &&",
+        --   "$dir/$fileNameWithoutExt",
+        -- },
+        -- c = "cd $dir && gcc $fileName -o /tmp/$fileNameWithoutExt && /tmp/$fileNameWithoutExt",
       },
     }
   end,
