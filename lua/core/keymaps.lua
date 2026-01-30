@@ -9,9 +9,9 @@ local opts = { noremap = true, silent = true }
 -- keys = { "<c-/>", mode = { "n", "t" }, "<cmd>ToggleTerm<CR>", desc = "Toggle terminal" },
 
 if vim.fn.has "win32" == 1 then
-  vim.keymap.set({ "n", "t" }, "<C-_>", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal (Snacks)" })
+  vim.keymap.set({ "n", "t" }, "<C-_>", "<cmd>update | RunCode<CR>", { desc = "Toggle Terminal (Snacks)" })
 else
-  vim.keymap.set({ "n", "t" }, "<C-/>", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal (Snacks)" })
+  vim.keymap.set({ "n", "t" }, "<C-/>", "<cmd>update | RunCode<CR>", { desc = "Toggle Terminal (Snacks)" })
 end
 vim.keymap.set("n", "<A-d>", function()
   require("snacks.picker").recent()

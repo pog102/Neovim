@@ -151,3 +151,10 @@ vim.api.nvim_create_autocmd("FileType", {
 --   vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
 --   vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
 -- end
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+    vim.lsp.buf.format { bufnr = args.buf }
+  end,
+})
