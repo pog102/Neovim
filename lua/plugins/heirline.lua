@@ -2,6 +2,12 @@ return {
   "rebelot/heirline.nvim",
   dependencies = "nvim-tree/nvim-web-devicons",
   config = function()
+    -- require("nvim-web-devicons").setup {
+    --   color_icons = true,
+    --   default = true,
+    --   strict = true,
+    -- }
+
     vim.keymap.set("n", "<Tab>", "<cmd>bnext<CR>") -- show definition, references
     vim.keymap.set("n", "<S-Tab>", "<cmd>bprev<CR>") -- show definition, references
     vim.keymap.set("n", "<A-q>", "<cmd>bdelete!<CR>") -- show definition, references
@@ -263,19 +269,19 @@ return {
         },
       },
     }
-    local Achiements = {
-      provider = function()
-        return require("triforce.lualine").achievements { icon = " " }
-      end,
-    }
+    -- local Achiements = {
+    --   provider = function()
+    --     return require("triforce.lualine").achievements { icon = " " }
+    --   end,
+    -- }
 
-    local Level = {
-      provider = function()
-        return require("triforce.lualine").level {
-          show = { percent = false },
-        }
-      end,
-    }
+    -- local Level = {
+    --   provider = function()
+    --     return require("triforce.lualine").level {
+    --       show = { percent = false },
+    --     }
+    --   end,
+    -- }
     -- The final touch!
     local TablineBufferBlock = utils.surround({ "", "" }, function(self)
       if self.is_active then
@@ -731,19 +737,19 @@ return {
     -- }
     local Space = { provider = " " }
     local Align = { provider = "%=" }
-    ViMode = utils.surround({ "", "" }, "bright_bg", { ViMode })
+    ViMode = utils.surround({ "", "" }, colors.bright_bg, { ViMode })
     -- require("heirline").load_colors(colors)
     -- ViMode = utils.surround({ "", "" }, colors.bright_bg, { ViMode })
 
-    local TriforceStatusline = {
-      on_click = {
-        callback = function()
-          require("triforce").show_profile()
-        end,
-        name = "heirline_triforce_statusline",
-      },
-      { Level, Space, Achiements },
-    }
+    -- local TriforceStatusline = {
+    --   on_click = {
+    --     callback = function()
+    --       require("triforce").show_profile()
+    --     end,
+    --     name = "heirline_triforce_statusline",
+    --   },
+    --   { Level, Space, Achiements },
+    -- }
     local StatusLine = {
       ViMode,
       Space,
@@ -753,7 +759,7 @@ return {
       Space,
       Git,
       Align,
-      TriforceStatusline,
+      -- TriforceStatusline,
       Align,
       Notifications,
       Space,

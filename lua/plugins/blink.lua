@@ -3,6 +3,9 @@ return {
   -- optional: provides snippets for the snippet source
   dependencies = {
     "rafamadriz/friendly-snippets",
+    "nvim-tree/nvim-web-devicons",
+    "onsails/lspkind.nvim",
+    -- "xzbdmw/colorful-menu.nvim",
     -- "onsails/lspkind.nvim", -- vs-code pictograms
   },
   -- use a release tag to download pre-built binaries
@@ -27,14 +30,49 @@ return {
     completion = {
       menu = {
         draw = {
-          padding = { 0, 1 }, -- padding only on right side
           components = {
             kind_icon = {
-              text = function(ctx)
-                return " " .. ctx.kind_icon .. ctx.icon_gap .. " "
+              highlight = function(ctx)
+                local hl = ctx.kind_hl
+                if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                  local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+                  if dev_icon then
+                    hl = dev_hl
+                  end
+                end
+                return hl
               end,
+              text = function(ctx)
+                local icon = ctx.kind_icon
+                if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                  local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+                  if dev_icon then
+                    icon = dev_icon
+                  end
+                else
+                  icon = require("lspkind").symbolic(ctx.kind, {
+                    mode = "symbol",
+                  })
+                end
+
+                return icon .. ctx.icon_gap
+              end,
+
+              -- Optionally, use the highlight groups from nvim-web-devicons
+              -- You can also add the same function for `kind.highlight` if you want to
+              -- keep the highlight groups in sync with the icons.
             },
           },
+          -- padding = { 0, 1 }, -- padding only on right side
+          -- components = {
+          --   kind_icon = {
+          --     text = function(ctx)
+          --       return " " .. ctx.kind_icon .. ctx.icon_gap .. " "
+          --     end,
+          --   },
+          -- },
+          -- We don't need label_description now because label and label_description are already
+          -- combined together in label by colorful-menu.nvim.
         },
         -- draw = {
         --   components = {
@@ -93,12 +131,16 @@ return {
       ["<Enter>"] = { "select_and_accept", "fallback" },
     },
 
+    -- appearance = {
+    --   -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+    --   -- Adjusts spacing to ensure icons are aligned
+    --   nerd_font_variant = "mono",
+    -- },
     appearance = {
-      -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-      -- Adjusts spacing to ensure icons are aligned
-      nerd_font_variant = "mono",
+      kind_icons = {
+        use = "devicons", -- 👈 THIS is the new API
+      },
     },
-
     -- (Default) Only show the documentation popup when manually triggered
 
     -- Default list of enabled providers defined so that you can extend it
@@ -112,7 +154,9 @@ return {
     -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
     --
     -- See the fuzzy documentation for more information
+
     fuzzy = { implementation = "prefer_rust_with_warning" },
   },
+
   opts_extend = { "sources.default" },
 }

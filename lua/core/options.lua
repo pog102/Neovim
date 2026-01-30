@@ -68,7 +68,7 @@ vim.opt.hlsearch = true
 
 -- for easy mouse resizing, just incase
 vim.opt.mouse = "a"
-
+vim.o.mousemoveevent = true
 -- gets rid of line with white spaces
 vim.g.editorconfig = true
 

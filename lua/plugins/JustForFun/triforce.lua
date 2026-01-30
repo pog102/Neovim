@@ -1,4 +1,5 @@
 return {
+  enabled = false,
   "gisketch/triforce.nvim",
   dependencies = { "nvzone/volt" },
   opts = {},
