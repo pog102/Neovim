@@ -109,9 +109,9 @@ return {
       hl = function(self)
         if self.is_active then
           return "TabLineSel"
-        -- why not?
-        -- elseif not vim.api.nvim_buf_is_loaded(self.bufnr) then
-        --     return { fg = "gray" }
+          -- why not?
+          -- elseif not vim.api.nvim_buf_is_loaded(self.bufnr) then
+          --     return { fg = "gray" }
         else
           return "TabLine"
           -- return "NONE"
@@ -286,11 +286,8 @@ return {
     local TablineBufferBlock = utils.surround({ "", "" }, function(self)
       if self.is_active then
         return utils.get_highlight("TabLineSel").bg
-        -- return utils.get_highlight("NONE").bg
       else
-        -- return "NONE"
         return utils.get_highlight("TabLine").bg
-        -- return utils.get_highlight("TabLine").bg
       end
     end, { TablineFileNameBlock, TablineCloseButton })
 
@@ -518,7 +515,7 @@ return {
         for i, server in pairs(vim.lsp.get_clients { bufnr = 0 }) do
           table.insert(names, server.name)
         end
-        return " [" .. table.concat(names, " ") .. "]"
+        return " " .. table.concat(names, ", ") .. " "
       end,
       hl = { fg = "green", bold = true },
     }
@@ -752,11 +749,10 @@ return {
     -- }
     local StatusLine = {
       ViMode,
-      Space,
-      FileNameBlock,
+      -- FileNameBlock,
       Space,
       Diagnostics,
-      Space,
+      -- Space,
       Git,
       Align,
       -- TriforceStatusline,

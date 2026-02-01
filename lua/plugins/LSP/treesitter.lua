@@ -14,7 +14,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     -- priority = 2,
-    -- dependencies = { "OXY2DEV/markview.nvim" },
+    -- dependencies = { "nvim-treesitter/nvim-treesitter-context" },
     -- lazy = false,
     event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
