@@ -384,10 +384,14 @@ return {
           t = "T",
         },
         mode_colors = {
-          n = colors.StatusLine,
-          i = colors.Sting,
-          v = colors.Visual,
-          V = colors.Visual,
+          n = "red",
+          i = "green",
+          v = "cyan",
+          V = "cyan",
+          -- n = colors.StatusLine,
+          -- i = colors.Sting,
+          -- v = colors.Visual,
+          -- V = colors.Visual,
           ["\22"] = colors.Visual,
           c = "orange",
           s = "purple",
@@ -723,6 +727,16 @@ return {
       utils.make_tablist(Tabpage),
       TabpageClose,
     }
+    local Lazy = {
+      condition = function()
+        local ok, lazy_status = pcall(require, "lazy.status")
+        return ok and lazy_status.has_updates()
+      end,
+      provider = function()
+        return require("lazy.status").updates() .. " "
+      end,
+      hl = "Error",
+    }
     -- local TerminalName = {
     --   -- we could add a condition to check that buftype == 'terminal'
     --   -- or we could do that later (see #conditional-statuslines below)
@@ -756,6 +770,7 @@ return {
       Git,
       Align,
       -- TriforceStatusline,
+      Lazy,
       Align,
       Notifications,
       Space,

@@ -15,7 +15,7 @@ require("lazy").setup({
   -- { import = "sethy.plugins.lsp" },
   { import = "plugins" },
   { import = "plugins/LSP" },
-  { import = "plugins/JustForFun" },
+  -- { import = "plugins/JustForFun" },
 }, {
   checker = {
     enabled = true,
