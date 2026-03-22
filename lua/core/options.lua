@@ -154,6 +154,59 @@ vim.api.nvim_create_autocmd("FileType", {
 --   vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
 --   vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
 -- end
+local function set_typst_folding()
+  vim.opt_local.foldmethod = "expr"
+  vim.opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
+  vim.opt_local.foldlevel = 99
+end
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "typst",
+  callback = set_typst_folding,
+})
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
+-- vim.opt.foldlevel = 99
+-- local save_fold_group = vim.api.nvim_create_augroup("PersistentFolds", { clear = true })
+--
+-- vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+--   group = save_fold_group,
+--   pattern = { "*.typ" }, -- Specifically for Typst files
+--   command = "silent! mkview",
+-- })
+--
+-- vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+--   group = save_fold_group,
+--   pattern = { "*.typ" },
+--   command = "silent! loadview",
+-- })
+-- vim.opt.foldenable = true
+-- vim.opt.viewoptions = "cursor,folds"
+--
+-- vim.api.nvim_create_autocmd({ "BufWinLeave", "BufWritePost" }, {
+--   pattern = "*.typ",
+--   command = "mkview",
+-- })
+--
+-- vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+--   pattern = "*.typ",
+--   command = "silent! loadview",
+-- })
+
+-- Optional: start with folds open
+-- restore cursor to file position in previous editing session
+vim.api.nvim_create_autocmd("BufReadPost", {
+  callback = function(args)
+    local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+    local line_count = vim.api.nvim_buf_line_count(args.buf)
+    if mark[1] > 0 and mark[1] <= line_count then
+      vim.api.nvim_win_set_cursor(0, mark)
+      -- defer centering slightly so it's applied after render
+      vim.schedule(function()
+        vim.cmd "normal! zz"
+      end)
+    end
+  end,
+})
 
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",

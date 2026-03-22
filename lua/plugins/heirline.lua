@@ -45,6 +45,8 @@ return {
       git_add = utils.get_highlight("DiffAdded").fg,
       git_change = utils.get_highlight("DiffChange").fg,
       StatusLine = utils.get_highlight("StatusLine").bg,
+      -- StatusLine = utils.get_highlight("DiffRemoved").bg,
+      -- StatusLine = "None",
       Sting = utils.get_highlight("String").fg,
     }
     local FileIcon = {
