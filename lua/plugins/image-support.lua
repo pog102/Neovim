@@ -1,6 +1,6 @@
 return {
   {
-    enabled = false,
+    enabled = true,
     "3rd/image.nvim",
     build = false, -- so that it doesn't build the rock https://github.com/3rd/image.nvim/issues/91#issuecomment-2453430239
     opts = {
@@ -15,8 +15,8 @@ return {
             enabled = true,
             clear_in_insert_mode = false,
             download_remote_images = true,
-            only_render_image_at_cursor = false,
-            only_render_image_at_cursor_mode = "popup", -- or "inline"
+            only_render_image_at_cursor = true, -- only render the image under the cursor
+            only_render_image_at_cursor_mode = "inline", -- or "inline"
             floating_windows = false, -- if true, images will be rendered in floating markdown windows
             filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
           },
@@ -26,6 +26,11 @@ return {
           -- },
           typst = {
             enabled = true,
+            clear_in_insert_mode = false,
+            download_remote_images = true,
+            only_render_image_at_cursor = true, -- only render the image under the cursor
+            only_render_image_at_cursor_mode = "inline", -- or "inline"
+            floating_windows = false, -- if true, images will be rendered in floating markdown windows
             filetypes = { "typst" },
           },
           html = {
