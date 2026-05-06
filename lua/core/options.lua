@@ -100,6 +100,8 @@ vim.g.editorconfig = true
 --     vim.lsp.buf.format({ async = true })
 --   end,
 -- })
+--
+--
 -- open help in vertical split
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "help",
@@ -116,44 +118,6 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.formatoptions:remove { "c", "r", "o" }
   end,
 })
--- ide like highlight when stopping cursor
--- vim.api.nvim_create_autocmd("CursorMoved", {
---   group = vim.api.nvim_create_augroup("LspReferenceHighlight", { clear = true }),
---   desc = "Highlight references under cursor",
---   callback = function()
---     -- Only run if the cursor is not in insert mode
---     if vim.fn.mode() ~= "i" then
---       local clients = vim.lsp.get_clients { bufnr = 0 }
---       local supports_highlight = false
---       for _, client in ipairs(clients) do
---         if client.server_capabilities.documentHighlightProvider then
---           supports_highlight = true
---           break -- Found a supporting client, no need to check others
---         end
---       end
---
---       -- 3. Proceed only if an LSP is active AND supports the feature
---       if supports_highlight then
---         vim.lsp.buf.clear_references()
---         vim.lsp.buf.document_highlight()
---       end
---     end
---   end,
--- })
--- -- ide like highlight when stopping cursor
--- vim.api.nvim_create_autocmd("CursorMovedI", {
---   group = "LspReferenceHighlight",
---   desc = "Clear highlights when entering insert mode",
---   callback = function()
---     vim.lsp.buf.clear_references()
---   end,
--- })
--- if vim.fn.has "win32" ~= 1 then
---   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
---   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
---   vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
---   vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
--- end
 local function set_typst_folding()
   vim.opt_local.foldmethod = "expr"
   vim.opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
@@ -163,35 +127,6 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "typst",
   callback = set_typst_folding,
 })
--- vim.opt.foldmethod = "expr"
--- vim.opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
--- vim.opt.foldlevel = 99
--- local save_fold_group = vim.api.nvim_create_augroup("PersistentFolds", { clear = true })
---
--- vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
---   group = save_fold_group,
---   pattern = { "*.typ" }, -- Specifically for Typst files
---   command = "silent! mkview",
--- })
---
--- vim.api.nvim_create_autocmd({ "BufReadPost" }, {
---   group = save_fold_group,
---   pattern = { "*.typ" },
---   command = "silent! loadview",
--- })
--- vim.opt.foldenable = true
--- vim.opt.viewoptions = "cursor,folds"
---
--- vim.api.nvim_create_autocmd({ "BufWinLeave", "BufWritePost" }, {
---   pattern = "*.typ",
---   command = "mkview",
--- })
---
--- vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
---   pattern = "*.typ",
---   command = "silent! loadview",
--- })
-
 -- Optional: start with folds open
 -- restore cursor to file position in previous editing session
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -208,9 +143,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function(args)
-    vim.lsp.buf.format { bufnr = args.buf }
-  end,
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = "*",
+--   callback = function(args)
+--     vim.lsp.buf.format { bufnr = args.buf }
+--   end,
+-- })

@@ -1,6 +1,7 @@
 return {
   -- "NvChad/nvim-colorizer.lua",
   "norcalli/nvim-colorizer.lua",
+  enabled=false,
   -- event = "BufReadPre",
   -- opts = {
   --   virtualtext = "■",
