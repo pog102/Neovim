@@ -1,9 +1,9 @@
-vim.lsp.config('lua_ls', {
+vim.lsp.config("lua_ls", {
   settings = {
     Lua = {
-      runtime = { version = 'LuaJIT' },
+      runtime = { version = "LuaJIT" },
       diagnostics = {
-        globals = { 'vim' },
+        globals = { "vim" },
       },
       workspace = {
         checkThirdParty = false,
@@ -17,22 +17,23 @@ vim.lsp.config('lua_ls', {
 })
 
 -- Enable one or more servers
-vim.lsp.enable({
-  'lua_ls',
-})
+vim.lsp.enable {
+  "lua_ls",
+  "bashls",
+}
 -- vim.lsp.enable({ 'gopls', 'jsonls' })
-vim.diagnostic.config({
+vim.diagnostic.config {
   severity_sort = true,
   update_in_insert = false,
   float = {
-    border = 'rounded',
-    source = 'if_many',
+    border = "rounded",
+    source = "if_many",
   },
   underline = true,
   virtual_text = {
     spacing = 2,
-    source = 'if_many',
-    prefix = '●',
+    source = "if_many",
+    prefix = "●",
   },
   signs = {
     text = {
@@ -42,4 +43,4 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.INFO] = " ",
     },
   },
-})
+}

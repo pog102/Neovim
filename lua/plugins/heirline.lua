@@ -440,7 +440,6 @@ return {
       end,
     }
     -- We can now define some children separately and add them later
-
     local FileName = {
       provider = function(self)
         -- first, trim the pattern relative to the current directory. For other
@@ -504,7 +503,7 @@ return {
       on_click = {
         callback = function()
           vim.defer_fn(function()
-            vim.cmd "LspInfo"
+            vim.cmd "Mason"
           end, 100)
         end,
         name = "heirline_LSP",
@@ -735,7 +734,7 @@ return {
         return ok and lazy_status.has_updates()
       end,
       provider = function()
-        return require("lazy.status").updates() .. " "
+        utils.surround({ "", "" }, colors.bright_bg, { require("lazy.status").updates() })
       end,
       hl = "Error",
     }
