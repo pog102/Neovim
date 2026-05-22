@@ -1,4 +1,4 @@
-vim.opt.spelllang = { "lt" }
+vim.opt.spelllang = { "lt", "en" }
 vim.api.nvim_set_hl(0, "SpellBad", { undercurl = true, sp = "Red" })
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
