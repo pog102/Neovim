@@ -3,6 +3,9 @@ return {
     "chomosuke/typst-preview.nvim",
     lazy = false, -- or ft = 'typst'
     version = "1.*",
+    config = function()
+      require("typst-preview").setup {}
+    end,
     init = function()
       local map = vim.api.nvim_set_keymap
       local opts = { noremap = true, silent = true }

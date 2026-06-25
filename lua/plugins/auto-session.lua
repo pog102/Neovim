@@ -5,38 +5,42 @@ return {
   ---enables autocomplete for opts
   ---@module "auto-session"
   ---@type AutoSession.Config
-  config = function()
-    require("auto-session").setup {
-      log_level = "error",
-      show_auto_restore_notif = false, -- Whether to show a notification when auto-restoring
-      auto_save = true, -- Enables/disables auto saving session on exit
-      auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-      bypass_save_filetypes = { "Dashboard", "alpha" },
-      auto_restore = false, -- Enables/disables auto restoring session on start
-      session_lens = {
-        picker = "snacks", -- 👈 force Snacks picker
-        picker_opts = {
-          layout = {
-            preset = "dropdown", -- or "ivy", "default", etc.
-            preview = true,
-          },
-          win = {
-            title = "Sessions",
-          },
+  -- config = function()
+  --   require("auto-session").setup {
+  opts = {
+    log_level = "error",
+    show_auto_restore_notif = false, -- Whether to show a notification when auto-restoring
+    auto_save = true, -- Enables/disables auto saving session on exit
+    auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+    bypass_save_filetypes = { "Dashboard", "alpha" },
+    -- auto_restore_last_session = true, -- On startup, loads the last saved session if session for cwd does not exist
+    auto_restore = true, -- Enables/disables auto restoring session on start
+    single_session_mode = false, -- Enable single session mode to keep all work in one session regardless of cwd changes. When enabled, prevents creation of separate sessions for different directories and maintains one unified session. Does not work with cwd_change_handling
+    auto_create = true, -- Enables/disables auto creating new session files. Can be a function that returns true if a new session file should be allowed
+    session_lens = {
+      picker = "snacks", -- 👈 force Snacks picker
+      picker_opts = {
+        layout = {
+          preset = "dropdown", -- or "ivy", "default", etc.
+          preview = true,
         },
-        previewer = "summary",
-
-        mappings = {
-          delete_session = { "i", "<C-d>" },
-          alternate_session = { "i", "<C-s>" },
-          copy_session = { "i", "<C-y>" },
-        },
-
-        session_control = {
-          control_dir = vim.fn.stdpath "data" .. "/auto_session/",
-          control_filename = "session_control.json",
+        win = {
+          title = "Sessions",
         },
       },
-    }
-  end,
+      previewer = "summary",
+
+      mappings = {
+        delete_session = { "i", "<C-d>" },
+        alternate_session = { "i", "<C-s>" },
+        copy_session = { "i", "<C-y>" },
+      },
+
+      session_control = {
+        control_dir = vim.fn.stdpath "data" .. "/auto_session/",
+        control_filename = "session_control.json",
+      },
+    },
+  },
+  -- end,
 }
