@@ -28,7 +28,6 @@ return {
       bright_fg = utils.get_highlight("Folded").fg,
       -- red = utils.get_highlight("DiagnosticError").fg,
       Visual = utils.get_highlight("Visual").bg,
-
       red = utils.get_highlight("DiagnosticError").fg,
       dark_red = utils.get_highlight("DiffDelete").bg,
       green = utils.get_highlight("String").fg,
@@ -44,7 +43,6 @@ return {
       git_del = utils.get_highlight("DiffRemoved").fg,
       git_add = utils.get_highlight("DiffAdded").fg,
       git_change = utils.get_highlight("DiffChange").fg,
-      StatusLine = utils.get_highlight("StatusLine").bg,
       -- StatusLine = utils.get_highlight("DiffRemoved").bg,
       -- StatusLine = "None",
       Sting = utils.get_highlight("String").fg,
@@ -763,6 +761,7 @@ return {
     --   { Level, Space, Achiements },
     -- }
     local StatusLine = {
+      hl = { bg = "NONE" },
       ViMode,
       -- FileNameBlock,
       Space,
